@@ -2,16 +2,10 @@ import React, { useState } from "react";
 import Axios from "axios";
 import styled from "styled-components";
 import MovieComponent from "../components/MovieComponent";
-import { NavLink } from "react-router-dom";
-import "./Movie.css";
-import { logout } from "../redux/apiCalls";
-import { useDispatch, useSelector } from "react-redux";
-import MovieInfoComponent from "../components/MovieInfoComponent";
-
-export const API_KEY = "a9118a3a";
+// import { NavLink } from "react-router-dom";
+// import { logout } from "../redux/apiCalls";
 
 const Container = styled.div`
-  margin-top: 83%;
   display: flex;
   flex-direction: column;
 `;
@@ -73,31 +67,25 @@ const Placeholder = styled.img`
   opacity: 50%;
 `;
 
-const LogoutButton = styled.button`
-  width: fit-content;
-  display: inline-block;
-  margin-top: 10px;
-  margin-left: 80%;
-`;
+// const LogoutButton = styled.button`
+//   width: fit-content;
+//   display: inline-block;
+//   margin-top: 10px;
+//   margin-left: 80%;
+// `;
 
 const Movie = () => {
   const [searchQuery, updateSearchQuery] = useState("");
   const [movieList, updateMovieList] = useState([]);
-  const [selectedMovie, onMovieSelect] = useState();
   const [filters, setFilters] = useState({});
   const [timeoutId, updateTimeoutId] = useState();
-  const isUser = useSelector((state) => state.user.currentUser);
-  const dispatch = useDispatch();
 
   const fetchData = async (searchString) => {
-    let url = "";
-    if (searchString) {
-      url = `http://localhost:5000/api/fetch/Movie/?movie=${searchString}`;
-    } else {
-      url = "http://localhost:5000/api/fetch/getMovie";
-    }
-    const res = await Axios.get(url);
-    console.log(res.data);
+    const res = await Axios.get(
+      searchString
+        ? `http://localhost:5000/api/fetch/Movie/?movie=${searchString}`
+        : "http://localhost:5000/api/fetch/getMovie"
+    );
     updateMovieList(res.data);
   };
 
@@ -112,9 +100,9 @@ const Movie = () => {
     updateTimeoutId(timeout);
   };
 
-  const handleLogOut = () => {
-    // logout(dispatch);
-  };
+  // const handleLogOut = () => {
+  //   logout(dispatch);
+  // };
 
   return (
     <Container>
@@ -145,7 +133,6 @@ const Movie = () => {
         )}
       </MovieListContainer>
     </Container>
-    // </div>
   );
 };
 

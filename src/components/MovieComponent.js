@@ -9,10 +9,6 @@ const MovieContainer = styled.div`
   box-shadow: 0 3px 10px 0 #aaa;
   cursor: pointer;
 `;
-const CoverImage = styled.img`
-  object-fit: cover;
-  height: 362px;
-`;
 const MovieName = styled.span`
   font-size: 18px;
   font-weight: 600;
@@ -36,21 +32,18 @@ const MovieInfo = styled.span`
   text-transform: capitalize;
   text-overflow: ellipsis;
 `;
-const MovieComponent = (props) => {
-  const { Title, Year, imdbID, Type, Poster } = props.movie;
 
+const MovieComponent = (props) => {
+  const { moviename, year } = props.movie;
   return (
     <MovieContainer
       onClick={() => {
-        props.onMovieSelect(imdbID);
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
     >
-      <CoverImage src={Poster} alt={Title} />
-      <MovieName>{Title}</MovieName>
+      <MovieName>{moviename}</MovieName>
       <InfoColumn>
-        <MovieInfo>Year : {Year}</MovieInfo>
-        <MovieInfo>Type : {Type}</MovieInfo>
+        <MovieInfo>Year : {year}</MovieInfo>
       </InfoColumn>
     </MovieContainer>
   );

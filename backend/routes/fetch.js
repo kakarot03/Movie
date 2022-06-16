@@ -17,7 +17,7 @@ router.get("/Movie", async (req, res) => {
   let name = req.query.movie;
   try {
     const movie = await Movie.find();
-    arr = movie.filter(function (e) {
+    arr = movie.filter((e) => {
       return e.moviename.toLowerCase().startsWith(name.toLowerCase());
     });
     res.status(200).json(arr);
